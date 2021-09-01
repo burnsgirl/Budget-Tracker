@@ -28,3 +28,12 @@ var transactionSeed = [
         date: new Date(Date.now())
     }
 ];
+
+db.transaction.deleteMany({})
+    .then(() => db.Transaction.collection.insertMany(transactionSeed))
+    .then(data => {
+        process.exit(0);
+    }) .catch (error => {
+        console.error(err);
+        process.exit(1);
+    });
