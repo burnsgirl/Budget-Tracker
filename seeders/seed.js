@@ -29,7 +29,7 @@ var transactionSeed = [
     }
 ];
 
-db.transaction.deleteMany({})
+db.Transaction.deleteMany({})
     .then(() => db.Transaction.collection.insertMany(transactionSeed))
     .then(data => {
         process.exit(0);
