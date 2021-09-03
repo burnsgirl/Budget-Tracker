@@ -1,6 +1,7 @@
 let transactions = [];
 let myChart;
 
+
 fetch("/api/transaction")
   .then(response => {
     return response.json();
@@ -143,6 +144,17 @@ function sendTransaction(isAdding) {
     amountEl.value = "";
   });
 }
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+  .register('service-worker.js')
+  .then((registration) => {
+    console.log('Service Worker Registered');
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+  }
 
 document.querySelector("#add-btn").onclick = function() {
   sendTransaction(true);
