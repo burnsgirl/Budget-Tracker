@@ -5,12 +5,12 @@ let budgetVersion;
 const request = indexedDB.open('BudgetDB', budgetVersion || 21);
 
 request.onupgradeneeded = function (e) {
-  console.log('Upgrade needed in IndexDB');
+  console.log('Upgrade needed');
 
   const { oldVersion } = e;
   const newVersion = e.newVersion || db.version;
 
-  console.log(`DB Updated from version ${oldVersion} to ${newVersion}`);
+  console.log(`Database updated from version ${oldVersion} to ${newVersion}`);
 
   db = e.target.result;
 
@@ -64,10 +64,6 @@ function checkDatabase() {
         });
     }
   };
-}
-
-request.onerror = function (event) {
-  console.log(`Error: ${event.target.errorCode}`);
 };
 
 request.onsuccess = function (e) {
