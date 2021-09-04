@@ -135,7 +135,7 @@ function sendTransaction(isAdding) {
       amountEl.value = "";
     }
   })
-  .catch(err => {
+  .catch(error => {
     // fetch failed, so save in indexed db
     saveRecord(transaction);
 
@@ -143,7 +143,7 @@ function sendTransaction(isAdding) {
     nameEl.value = "";
     amountEl.value = "";
   });
-}
+};
 
 document.querySelector("#add-btn").onclick = function() {
   sendTransaction(true);
