@@ -48,7 +48,7 @@ const FILES_TO_CACHE = [
   // fetch
   self.addEventListener("fetch", function(evt) {
     // cache successful requests to the API
-    if (evt.request.url.includes("/api/transaction")) {
+    if (evt.request.url.includes("/api/")) {
       evt.respondWith(
         caches.open(DATA_CACHE_NAME).then(cache => {
           return fetch(evt.request)
@@ -70,15 +70,14 @@ const FILES_TO_CACHE = [
       return;
     }
 
-    event.respondWith(
-      fetch(event.request).catch(function () {
-        return caches.match(event.request).then(function(response) {
-          if (response) {
-            return response
-          } else (event.request.headers.get("accept").includes("text/html")) {
-            return caches.match("/")
-          }
-        })
-      }
-    )
+    evt.respondWith(
+      caches.open(CACHE_NAME)
+      .then(cache => {
+        return cache.match(evt.request)
+        .then(response => {
+          return response || fetch(evt.request);
+        });
+      })
+    );
+  });
       
