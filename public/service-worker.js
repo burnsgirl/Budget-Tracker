@@ -65,11 +65,15 @@ const FILES_TO_CACHE = [
       return;
     }
 
-    evt.respondWith(
-      caches.match(evt.request).then(function(response) {
-        return response || fetch(evt.request);
-      })
-    );
-  });
-  
-  
+    event.respondWith(
+      fetch(event.request).catch(function () {
+        return caches.match(event.request).then(function(response) {
+          if (response) {
+            return response
+          } else (event.request.headers.get("accept").includes("text/html")) {
+            return caches.match("/")
+          }
+        })
+      }
+    )
+      

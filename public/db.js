@@ -66,6 +66,10 @@ function checkDatabase() {
   };
 }
 
+request.onerror = function (event) {
+  console.log(`Error: ${event.target.errorCode}`);
+};
+
 request.onsuccess = function (e) {
   console.log('success');
   db = e.target.result;
